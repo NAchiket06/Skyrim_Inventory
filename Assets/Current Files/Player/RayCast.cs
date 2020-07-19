@@ -10,8 +10,8 @@ public class RayCast : MonoBehaviour
     RaycastHit hit;
 
     [SerializeField] Canvas ItemCanvas;
-    [SerializeField] TextMeshProUGUI objName;
-    [SerializeField] TextMeshProUGUI objWeight;
+    [SerializeField] TextMeshProUGUI obj;
+    float raylength = 2f;
    
     void Awake(){
         disableUI();
@@ -34,21 +34,24 @@ public class RayCast : MonoBehaviour
 
     private void ProcessRaycast()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, raylength))
         {
           if( hit.transform.GetComponent<ItemType>() != null ){
               updateUI(hit);
-          }   
-          else{
+                // Changed the raylength so that when player removes focus from the object, the ray is long enough to return a null instead of returning nothing
+              raylength = 100f;
+            }   
+          else {
               disableUI();
+                raylength = 2f;
+
           } 
         }
     }   
 
     void updateUI(RaycastHit hit){      
         ItemCanvas.enabled = true;
-        objWeight.text = hit.transform.GetComponent<ItemType>().item.weight.ToString();
-        objName.text = hit.transform.name;
+        obj.text = hit.transform.name +"    " + hit.transform.GetComponent<ItemType>().item.weight.ToString();
     }
 
     
