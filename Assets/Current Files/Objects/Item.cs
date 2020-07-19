@@ -10,8 +10,8 @@ public class Item : ScriptableObject
      Weapon,
      Ingredient,
      Misc
-      } 
-
+      }
+    public GameObject obj;
     public float weight;
     public ItemType itemType;
     public float Damage;

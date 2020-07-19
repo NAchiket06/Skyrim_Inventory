@@ -6,7 +6,7 @@ using System;
 
 public class RayCast : MonoBehaviour
 {
-
+    
     RaycastHit hit;
 
     [SerializeField] Canvas ItemCanvas;
@@ -52,6 +52,17 @@ public class RayCast : MonoBehaviour
     void updateUI(RaycastHit hit){      
         ItemCanvas.enabled = true;
         obj.text = hit.transform.name +"    " + hit.transform.GetComponent<ItemType>().item.weight.ToString();
+        CheckforInput();
+    }
+
+    void CheckforInput()
+    {
+        //   Debug.Log("Checking for Input");
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GetComponentInParent<PlayerInventory>().AddItem(hit.transform.GetComponent<ItemType>().item);
+            Destroy(hit.transform.gameObject);
+        }
     }
 
     
