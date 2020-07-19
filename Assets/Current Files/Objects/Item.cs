@@ -6,11 +6,12 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public enum ItemType{
-        Apparel,
-     Weapon,
-     Ingredient,
-     Misc
-      }
+         Apparel,
+         Weapon,
+         Ingredient,
+         Misc
+    }
+
     public GameObject obj;
     public float weight;
     public ItemType itemType;

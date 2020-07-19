@@ -9,12 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7786a227e49ae5549b1e63f76205e3da, type: 3}
-  m_Name: Books
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Post-process Volume Profile
   m_EditorClassIdentifier: 
-  obj: {fileID: 100000, guid: 30eadeff2df12ad4fa3af72b710dc5c7, type: 3}
-  weight: 2
-  itemType: 3
-  Damage: 0
-  health: 0
-  enchanted: 0
+  components: []
