@@ -18,3 +18,4 @@ MonoBehaviour:
   Damage: 0
   health: 0
   enchanted: 0
+  scale: {x: 0.5, y: 0.5, z: 0.5}

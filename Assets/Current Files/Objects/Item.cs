@@ -18,5 +18,6 @@ public class Item : ScriptableObject
     public float Damage;
     public float health;
     public bool enchanted;
+    public Vector3 scale;
 
 }

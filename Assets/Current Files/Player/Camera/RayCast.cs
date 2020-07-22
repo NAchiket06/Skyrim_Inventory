@@ -19,14 +19,9 @@ public class RayCast : MonoBehaviour
 
     void disableUI(){
        ItemCanvas.enabled = false;
-
     }
-    void Start()
-    {
-      
-    }
+   
 
-    // Update is called once per frame
     void Update()
     {
         ProcessRaycast();
@@ -52,16 +47,19 @@ public class RayCast : MonoBehaviour
     void updateUI(RaycastHit hit){      
         ItemCanvas.enabled = true;
         obj.text = hit.transform.name +"    " + hit.transform.GetComponent<ItemType>().item.weight.ToString();
-        CheckforInput();
+        CheckforInput(hit.transform.gameObject);
     }
 
-    void CheckforInput()
+    void CheckforInput(GameObject item)
     {
-        //   Debug.Log("Checking for Input");
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GetComponentInParent<PlayerInventory>().AddItem(hit.transform.GetComponent<ItemType>().item);
-            Destroy(hit.transform.gameObject);
+            Debug.Log("Added item in inventory");
+            GetComponentInParent<PlayerInventory>().AddItem(item);
+            item.transform.localScale = new Vector3(0, 0, 0);
+            //Destroy(item);
+            
         }
     }
 

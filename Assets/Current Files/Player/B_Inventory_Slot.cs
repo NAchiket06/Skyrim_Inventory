@@ -1,30 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class B_Inventory_Slot : MonoBehaviour
 {
+    public Transform spawnPos;
+
     public bool isEmpty = true;
     Item item;
-    Text itemText;
+    TextMeshProUGUI itemText;
     private void Start()
     {
-        itemText = GetComponentInChildren<Text>();
+        itemText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void AddItem(Item newItem)
+    public void AddItem()
     {
-        isEmpty = false;
-        item = newItem;
-        itemText.text = item.name; 
+       
     }
 
     public void RemoveItem()
     {
-        Instantiate(item.obj);
-        isEmpty = true;
-        item = null;
-        itemText.text = null;
     }
 }
