@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class PlayerInventory : MonoBehaviour
 {
+    public B_Inventory_UI inventoryUI;
     public List<Item> inventoryItem = new List<Item>();
 
     public float Maxweight = 200f;
@@ -14,13 +15,13 @@ public class PlayerInventory : MonoBehaviour
     bool isInventoryActive;
 
     public Transform SpawnPos;
-    public Canvas inventoryCanvas;
+    
 
-    Text[] slot;
+    
 
     private void Start()
     {
-         slot = inventoryCanvas.GetComponentsInChildren<Text>();
+         
     }
 
     void Update()
@@ -43,6 +44,7 @@ public class PlayerInventory : MonoBehaviour
         if (inventoryItem.Count != 0)
         {
             Instantiate(inventoryItem[0].obj,SpawnPos,true);
+            inventoryUI.RemoveItem();           
             inventoryItem.Remove(inventoryItem[0]);
             Debug.Log("Removed from List");
         }
@@ -56,14 +58,14 @@ public class PlayerInventory : MonoBehaviour
             inventoryItem.Add(item);
             currentWeight += item.weight;
             UpdateInventoryCanvas(item);
+            
 
         }
     }
 
     void UpdateInventoryCanvas(Item item)
     {
-        int position = inventoryItem.Count;
-        slot[position-1].text = item.name;
+        inventoryUI.UpdateUI(item);
     }
    
 }
