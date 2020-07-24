@@ -6,15 +6,12 @@ using UnityEngine.UI;
 
 public class B_Inventory_Slot : MonoBehaviour
 {
-    public Transform spawnPos;
+   
 
     public bool isEmpty = true;
     Item item;
     public TextMeshProUGUI itemText;
-    private void Start()
-    {
-       
-    }
+ 
 
     public void AddItem(GameObject item)
     {
@@ -24,5 +21,6 @@ public class B_Inventory_Slot : MonoBehaviour
 
     public void RemoveItem()
     {
+        Destroy(gameObject);
     }
 }

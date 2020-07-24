@@ -17,5 +17,6 @@ MonoBehaviour:
   itemType: 3
   Damage: 0
   health: 0
+  value: 2
   enchanted: 0
   scale: {x: 0.6, y: 0.6, z: 0.6}

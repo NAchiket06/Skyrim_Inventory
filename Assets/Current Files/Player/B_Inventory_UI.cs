@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,52 +9,50 @@ using UnityScript.Scripting.Pipeline;
 
 public class B_Inventory_UI : MonoBehaviour
 {
-    public Transform ItemsParent;
-    B_Inventory_Slot[] slots;
+    
 
-    public B_Inventory_Slot[] inventorySlot;
-    public B_Inventory_Slot iSlot;
-    float startPosX = -250f,startposY = 300f,mulitplier = 40f;
-    public int itemsCount = 0;
+    public B_Inventory_Slot[] slots; // list of all the ui panels in itemsParent
+    public GameObject itemsParent; // parent gameobject of the ui panel
 
-    private void Start()
+    public GameObject panel; // ui panel to be instantiated
+    public int itemCount;
+
+
+    public void UpdateUI(List<GameObject> playerItems) // list of all the player items
     {
-        inventorySlot = ItemsParent.GetComponentsInChildren<B_Inventory_Slot>();
-    }
-
-    public void UpdateUI(GameObject playerItems)
-    {
-        /*   slots = ItemsParent.GetComponentsInChildren<B_Inventory_Slot>();
-           itemsCount++;
-           GameObject newslot = Instantiate(inventorySlot) as GameObject;
-           newslot.transform.localScale = new Vector3(1, 1, 1);
-           newslot.GetComponent<RectTransform>().position = new Vector2(startPosX,startposY - itemsCount*40f);
-
-
-           newslot.transform.SetParent(ItemsParent);
-           for(int i = 0; i < slots.Length; i++)
-           {
-               if (slots[i].isEmpty)
-               {
-                   slots[i].GetComponentInChildren<TextMeshProUGUI>().text = item.name;
-                   slots[i].isEmpty = false;
-                   return;
-
-               }
-           }
-        */
-        itemsCount = playerItems.transform.childCount;
-        for(int i = 0; i < inventorySlot.Length; i++)
+        getSlots();   
+        for(int i = 0; i < slots.Length; i++)
         {
-            if (inventorySlot[i].isEmpty)
-            {
-                inventorySlot[i].AddItem(playerItems);
-            }
+            slots[i].AddItem(playerItems[i]);
         }
     }
 
-    public void RemoveItem()
+    public void RemoveItem(List<GameObject> playerItems)
     {
-       
+        Debug.Log("playerItems has count " + playerItems.Count);
+        itemCount = playerItems.Count;
+        Destroy(slots[itemCount].gameObject);
+        UpdateUI(playerItems);
+        
     }
+
+    public void AddItem(List<GameObject> playerItems)
+    {
+        GameObject panel = InstatiatePanel();
+        UpdateUI(playerItems);
+        itemCount = playerItems.Count;
+    }
+    private GameObject InstatiatePanel()
+    {
+        GameObject Panel = Instantiate(panel) as GameObject;
+        Panel.transform.SetParent(itemsParent.transform);
+        Panel.GetComponent<RectTransform>().anchoredPosition = new Vector2(143, -219 - itemCount * 50);
+        Panel.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        return Panel;
+    }
+
+    void getSlots() {
+        slots = itemsParent.GetComponentsInChildren<B_Inventory_Slot>();
+    }
+
 }

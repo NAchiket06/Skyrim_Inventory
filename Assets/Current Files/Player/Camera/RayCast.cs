@@ -10,17 +10,12 @@ public class RayCast : MonoBehaviour
     RaycastHit hit;
 
     [SerializeField] Canvas ItemCanvas;
-    [SerializeField] TextMeshProUGUI obj;
+    [SerializeField] TextMeshProUGUI Name,weight,value;
     float raylength = 2f;
    
     void Awake(){
         disableUI();
     }
-
-    void disableUI(){
-       ItemCanvas.enabled = false;
-    }
-   
 
     void Update()
     {
@@ -46,7 +41,10 @@ public class RayCast : MonoBehaviour
 
     void updateUI(RaycastHit hit){      
         ItemCanvas.enabled = true;
-        obj.text = hit.transform.name +"    " + hit.transform.GetComponent<ItemType>().item.weight.ToString();
+        //obj.text = hit.transform.name +"    " + hit.transform.GetComponent<ItemType>().item.weight.ToString();
+        Name.text = hit.transform.name;
+        weight.text = hit.transform.GetComponent<ItemType>().item.weight.ToString();
+        value.text = hit.transform.GetComponent<ItemType>().item.value.ToString();
         CheckforInput(hit.transform.gameObject);
     }
 
@@ -55,13 +53,15 @@ public class RayCast : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("Added item in inventory");
+            Debug.Log("Added "+item.name +" in inventory");
             GetComponentInParent<PlayerInventory>().AddItem(item);
-
-            
         }
     }
+    void disableUI()
+    {
+        ItemCanvas.enabled = false;
+    }
 
-    
+
 }
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
     public B_Inventory_UI inventoryUI; // handles inventory UI
+    public Canvas inventoryCanvas;
     public List<GameObject> inventoryItem = new List<GameObject>(); // list that holds the items
     public GameObject playerItems; // parent object that holds the player items
     public Transform worldItems;
@@ -21,7 +22,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryUI.enabled = false;
+        inventoryCanvas.enabled = false;
     }
 
     void Update()
@@ -29,33 +30,45 @@ public class PlayerInventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             isInventoryActive = !isInventoryActive;
+           
+            inventoryCanvas.enabled = !inventoryCanvas.enabled;
         }
+       
         if (isInventoryActive)
         {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             inventoryUI.enabled = true;
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.T) && inventoryItem.Count > 0)
             {
                 RemoveItem();
             }
         }
-        else inventoryUI.enabled = false;
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
     }
 
     private void RemoveItem()
     {
-        if (inventoryItem.Count != 0)
-        {
-            
-            inventoryUI.RemoveItem();
-            GameObject item = inventoryItem[0];
-            item.transform.SetParent(worldItems);
-            item.SetActive(true);
-            item.transform.localScale = item.GetComponent<ItemType>().item.scale;
-            item.transform.position = SpawnPos.position;
-            inventoryItem.Remove(inventoryItem[0]);
-            Debug.Log("Removed from List");
-        }
-        
+        GameObject item = inventoryItem[0];
+        Debug.Log("Removed " + inventoryItem[0].name + "from List");
+        SpawnIteminWorld(item);
+        currentWeight -= item.GetComponent<ItemType>().item.weight;
+        inventoryItem.Remove(item); // removes item from list
+        inventoryUI.RemoveItem(inventoryItem); // removes item from ui
+        return;
+    }
+
+    private void SpawnIteminWorld(GameObject item)
+    {
+        item.transform.SetParent(worldItems);
+        item.SetActive(true);
+        item.transform.localScale = item.GetComponent<ItemType>().item.scale;
+        item.transform.position = SpawnPos.position;
     }
 
     public bool AddItem(GameObject item)
@@ -64,9 +77,9 @@ public class PlayerInventory : MonoBehaviour
          float weight = item.GetComponent<ItemType>().item.weight;
         if (currentWeight + weight <= Maxweight)
         {
+            currentWeight += weight;
             AddInInventory(item);
             return true;
-
         }
         else return false;    
     }
@@ -74,14 +87,12 @@ public class PlayerInventory : MonoBehaviour
     private void AddInInventory(GameObject item)
     {
         item.transform.SetParent(playerItems.transform);
-        item.SetActive(false);
         inventoryItem.Add(item);
-        inventoryUI.UpdateUI(playerItems);
-    }
-
-    void UpdateInventoryCanvas(Item item)
-    {
+        inventoryUI.AddItem(inventoryItem);
+        item.SetActive(false);
         
     }
+        
+   
    
 }
