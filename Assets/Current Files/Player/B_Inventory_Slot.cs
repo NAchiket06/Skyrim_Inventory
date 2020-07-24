@@ -10,15 +10,16 @@ public class B_Inventory_Slot : MonoBehaviour
 
     public bool isEmpty = true;
     Item item;
-    TextMeshProUGUI itemText;
+    public TextMeshProUGUI itemText;
     private void Start()
     {
-        itemText = GetComponentInChildren<TextMeshProUGUI>();
+       
     }
 
-    public void AddItem()
+    public void AddItem(GameObject item)
     {
-       
+        itemText.text = item.name;
+        isEmpty = false;
     }
 
     public void RemoveItem()

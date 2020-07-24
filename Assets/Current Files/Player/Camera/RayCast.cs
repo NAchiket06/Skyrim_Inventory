@@ -57,8 +57,7 @@ public class RayCast : MonoBehaviour
         {
             Debug.Log("Added item in inventory");
             GetComponentInParent<PlayerInventory>().AddItem(item);
-            item.transform.localScale = new Vector3(0, 0, 0);
-            //Destroy(item);
+
             
         }
     }
