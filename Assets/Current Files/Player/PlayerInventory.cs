@@ -56,14 +56,14 @@ public class PlayerInventory : MonoBehaviour
     {
         GameObject item = inventoryItem[0];
         Debug.Log("Removed " + inventoryItem[0].name + "from List");
-        SpawnIteminWorld(item);
+        SpawnItemInWorld(item);
         currentWeight -= item.GetComponent<ItemType>().item.weight;
         inventoryItem.Remove(item); // removes item from list
         inventoryUI.RemoveItem(inventoryItem); // removes item from ui
         return;
     }
 
-    private void SpawnIteminWorld(GameObject item)
+    private void SpawnItemInWorld(GameObject item)
     {
         item.transform.SetParent(worldItems);
         item.SetActive(true);

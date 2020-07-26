@@ -9,7 +9,12 @@ public class Item : ScriptableObject
          Apparel,
          Weapon,
          Ingredient,
-         Misc
+         Misc,
+         Potion,
+         Food,
+         Book,
+         Key
+
     }
 
     public GameObject obj;
@@ -19,7 +24,7 @@ public class Item : ScriptableObject
     public float health;
     public int value;
     public bool enchanted;
-    public Vector3 scale;
+    public Vector3 scale = new Vector3(1,1,1);
 
 
 }
