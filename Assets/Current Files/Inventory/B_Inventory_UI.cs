@@ -23,23 +23,23 @@ public class B_Inventory_UI : MonoBehaviour
             getSlots();
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].AddItem(playerItems[i]);
+                slots[i].AddItem(playerItems[i],i);
             }
         
     }
 
     public void RemoveItem(List<GameObject> playerItems)
     {
-        Debug.Log("playerItems has count " + playerItems.Count);
-        itemCount = playerItems.Count;
-        Destroy(slots[itemCount].gameObject);
-        if(playerItems.Count == 0)
-        {
-            Debug.Log("No items in inventory");
+        //Debug.Log("playerItems has count " + playerItems.Count);
+        //itemCount = playerItems.Count;
+        //Destroy(slots[itemCount].gameObject);
+        //if(playerItems.Count == 0)
+        //{
+        //    Debug.Log("No items in inventory");
            
-            return;
-        }
-        else UpdateUI(playerItems);
+        //    return;
+        //}
+        //else UpdateUI(playerItems);
         
         
     }

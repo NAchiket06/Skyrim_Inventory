@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class B_Inventory_Slot : MonoBehaviour
 {
-   
 
+    public int index;
     public bool isEmpty = true;
     Item item;
     public TextMeshProUGUI itemText;
  
 
-    public void AddItem(GameObject item)
+    public void AddItem(GameObject item,int i)
     {
+        index = i;
         itemText.text = item.name;
         isEmpty = false;
     }
